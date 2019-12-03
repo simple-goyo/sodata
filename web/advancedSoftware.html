@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CodeWisdom</title>
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- <link rel="stylesheet" href="./css/element_ui_index.css"> -->
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/advanceSoftware.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body style="background-color: #f5f6fc;margin: 0;">
+  <div id="app">
+  <div id="banner">
+	  API Sample Code
+  </div>
+  <div id="content">
+	<div id="button-block">
+		<div style="margin-right: 1.3%;">
+	      <input type="text" id="input_number_or_class" :placeholder="query_prompt" class="search" v-model="query" style="background: #fff;min-width: 240px;margin: 20px 0 0 10px;width: 56.5%;">
+	    </div>
+      <div style="margin-top: 16px;">
+        <el-select
+	  	       v-model="value"
+	  	       @change="change_search"
+	  	       placeholder="请选择">
+  		    <el-option
+  		      v-for="item in options"
+  		      :key="item.value"
+  		      :label="item.label"
+  		      :value="item.value">
+  		    </el-option>
+  		  </el-select>
+	      <input class="btn search" type="button" value="Example" style="color: #fff;margin-right: 8px;" id="example" @click="example">
+        <input class="btn search" type="button" value="Search" id="search" style="color: #fff;" @click="display_loading">
+	    </div>
+	</div>
+  </div>
+  <div>
+     <div ref="loading" v-bind:class="{search_api_difference_hidden:isActive}" style="text-align: center;font-size: 26px;">loading……</div>
+  </div>
+  <div id="main" ref="result" style="width: 60%;border-radius: 25px;margin: 0 auto 30px auto;display: none;">
+    <div style="margin-bottom: 30px;" v-for="(api, index) in pageCurrentData">
+      <el-card class="box-card" style="border-radius: 25px;">
+        <div slot="header" class="clearfix" @click='showGraph(api["name"])'>
+          <span>{{api["name"]}}</span>
+        </div>
+        <div class="text item">
+          {{api["description"]}}
+        </div>
+        <el-divider><i class="el-icon-star-on"></i></el-divider>
+        <pre class="text item">{{api["code"]}}</pre>
+      </el-card>
+    </div>
+    <div style="background-color: rgb(255, 255, 255); width: 100%; border-radius: 20px;text-align: center;padding-top: 12px;padding-bottom: 12px;">
+      <el-pagination
+          @current-change="change_data"
+          background
+          layout="prev, pager, next"
+          :page-size="5"
+          :total="total_api_num">
+      </el-pagination>
+    </div>
+  </div>
+  </div>
+</body>
+  <!-- import Vue before Element -->
+  <script src="./js/vue.min.js"></script>
+  <!-- import JavaScript -->
+  <script src="./js/element_ui_index.js"></script>
+  <script src="./js/advancedSoftware.js"></script>
+</html>
